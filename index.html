@@ -28,7 +28,7 @@ main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 16px 4
 /* banner */
 .banner{position:relative;margin:16px 0 0;border-radius:16px;overflow:hidden;border:2px solid transparent;background:var(--edge) border-box;}
 .banner img{display:block;width:100%;height:auto;border-radius:14px}
-.banner .slice{position:absolute;inset:0;background:url(assets/banner.png) center/100% 100%;border-radius:14px;opacity:0;pointer-events:none}
+.banner .slice{position:absolute;inset:0;background:url(assets/banner-centered.png) center/100% 100%;border-radius:14px;opacity:0;pointer-events:none}
 .banner .s1{animation:sl1 4.2s steps(1) infinite}.banner .s2{animation:sl2 5.3s steps(1) infinite .6s}
 @keyframes sl1{0%,88%,100%{opacity:0}89%{opacity:1;clip-path:inset(22% 0 61% 0);transform:translateX(-26px);filter:hue-rotate(160deg)}91%{clip-path:inset(55% 0 30% 0);transform:translateX(22px)}93%{opacity:0}}
 @keyframes sl2{0%,84%,100%{opacity:0}85%{opacity:1;clip-path:inset(40% 0 48% 0);transform:translateX(30px);filter:saturate(3)}87%{clip-path:inset(70% 0 18% 0);transform:translateX(-18px)}89%{opacity:0}}
@@ -117,7 +117,7 @@ footer p{font:14px var(--mono);letter-spacing:3px;color:var(--dim);margin-top:14
 
 <main>
   <div class="banner">
-    <img src="assets/banner.png" alt="SNEAKS">
+    <img src="assets/banner-centered.png" alt="SNEAKS">
     <div class="slice s1" aria-hidden="true"></div><div class="slice s2" aria-hidden="true"></div>
   </div>
 
