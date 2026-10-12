@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SNEAKS</title>
+<meta name="description" content="Sneaks — builder in NY. AI agents, agent infra, Solana, x402, open-source dev tools.">
+<meta name="theme-color" content="#0d0d12">
+<meta property="og:title" content="SNEAKS">
+<meta property="og:description" content="AI agents · agent infra · solana · x402 · shipping in public from NY">
+<meta property="og:image" content="https://0xsneaks.github.io/assets/banner.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<style>
+:root{--bg:#0d0d12;--panel:#14141c;--line:#24242e;--ink:#f4f4f8;--dim:#8b8f9a;--pink:#ff3ea5;--cyan:#2ed3ff;--violet:#b48cff;--gold:#f2b84b;
+--edge:linear-gradient(90deg,var(--pink),var(--violet),var(--cyan));--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;--heavy:'Arial Black',Impact,'Helvetica Neue',sans-serif}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,'Segoe UI',sans-serif;overflow-x:hidden;min-height:100vh}
+a{color:inherit}
+#web{position:fixed;inset:0;z-index:0;pointer-events:none}
+.scan{position:fixed;inset:0;z-index:50;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 4px);mix-blend-mode:screen}
+.flash{position:fixed;left:0;right:0;height:4px;z-index:51;pointer-events:none;opacity:0;background:var(--cyan);animation:flash 6s steps(1) infinite}
+.flash.b{height:2px;background:var(--pink);animation-duration:7.7s;animation-delay:2.1s}
+@keyframes flash{0%,93%,100%{opacity:0;top:20%}94%{opacity:.8;top:31%}96%{opacity:.8;top:63%}97%{opacity:0}}
+main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 16px 40px}
+
+/* banner */
+.banner{position:relative;margin:16px 0 0;border-radius:16px;overflow:hidden;border:2px solid transparent;background:var(--edge) border-box;}
+.banner img{display:block;width:100%;height:auto;border-radius:14px}
+.banner .slice{position:absolute;inset:0;background:url(assets/banner.png) center/100% 100%;border-radius:14px;opacity:0;pointer-events:none}
+.banner .s1{animation:sl1 4.2s steps(1) infinite}.banner .s2{animation:sl2 5.3s steps(1) infinite .6s}
+@keyframes sl1{0%,88%,100%{opacity:0}89%{opacity:1;clip-path:inset(22% 0 61% 0);transform:translateX(-26px);filter:hue-rotate(160deg)}91%{clip-path:inset(55% 0 30% 0);transform:translateX(22px)}93%{opacity:0}}
+@keyframes sl2{0%,84%,100%{opacity:0}85%{opacity:1;clip-path:inset(40% 0 48% 0);transform:translateX(30px);filter:saturate(3)}87%{clip-path:inset(70% 0 18% 0);transform:translateX(-18px)}89%{opacity:0}}
+
+/* ticker */
+.ticker{margin:16px 0;border-radius:12px;padding:2px;background:var(--edge);overflow:hidden}
+.ticker-in{background:var(--bg);border-radius:10px;overflow:hidden;white-space:nowrap;padding:12px 0}
+.track{display:inline-flex;animation:run 22s linear infinite}
+.track span{font:900 clamp(18px,3.4vw,30px) var(--heavy);letter-spacing:2px;padding-right:28px;text-shadow:-3px 0 var(--pink),3px 0 var(--cyan)}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,5vw,56px);align-items:center;padding:36px 0 12px}
+.av{position:relative;width:clamp(150px,30vw,230px);aspect-ratio:1}
+.av img{position:absolute;inset:12%;width:76%;height:76%;border-radius:50%;object-fit:cover;z-index:2}
+.av .ring{position:absolute;inset:4%;border-radius:50%;border:4px dashed transparent;background:conic-gradient(var(--pink),var(--violet),var(--cyan),var(--pink)) border-box;-webkit-mask:linear-gradient(#000 0 0) padding-box exclude,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) padding-box exclude,linear-gradient(#000 0 0);animation:spin 6s linear infinite}
+.av .ring2{position:absolute;inset:0;border-radius:50%;border:2px dashed var(--cyan);animation:spin 11s linear infinite reverse;opacity:.8}
+.av .glow{position:absolute;inset:8%;border-radius:50%;box-shadow:0 0 40px 8px var(--pink),0 0 80px 10px rgba(46,211,255,.35);animation:pulse 2.2s ease-in-out infinite}
+.av .gl{position:absolute;left:12%;right:12%;z-index:3;height:6%;opacity:0;animation:avgl 3.6s steps(1) infinite}
+.av .gl.a{top:36%;background:var(--cyan)}.av .gl.b{top:62%;height:4%;background:var(--pink);animation-delay:.5s}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:.9}}
+@keyframes avgl{0%,84%,100%{opacity:0;transform:none}85%{opacity:.9;transform:translateX(-8px)}88%{opacity:.9;transform:translateX(9px)}91%{opacity:0}}
+.name{font:900 clamp(56px,13vw,140px)/.9 var(--heavy);letter-spacing:4px;position:relative;display:inline-block}
+.name::before,.name::after{content:attr(data-t);position:absolute;inset:0;mix-blend-mode:screen}
+.name::before{color:var(--pink);animation:jp 2.4s steps(1) infinite}
+.name::after{color:var(--cyan);animation:jq 3.1s steps(1) infinite}
+@keyframes jp{0%,100%{transform:translate(-4px,0)}30%{transform:translate(-14px,2px);clip-path:inset(10% 0 55% 0)}33%{transform:translate(-4px,0);clip-path:none}70%{transform:translate(6px,-2px)}73%{transform:translate(-4px,0)}}
+@keyframes jq{0%,100%{transform:translate(4px,0)}45%{transform:translate(15px,-2px);clip-path:inset(50% 0 20% 0)}48%{transform:translate(4px,0);clip-path:none}85%{transform:translate(-7px,2px)}88%{transform:translate(4px,0)}}
+.term{font:clamp(14px,2.2vw,17px)/1.7 var(--mono);margin-top:14px;color:var(--ink)}
+.term .p{color:var(--pink)}.term .c{color:var(--cyan)}.term .v{color:var(--violet)}.term .d{color:var(--dim)}
+.cur{display:inline-block;width:.6em;height:1.1em;vertical-align:-.15em;background:var(--cyan);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{font:700 13px var(--mono);letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:11px 16px;border-radius:10px;border:2px solid var(--c,var(--pink));color:var(--c,var(--pink));background:rgba(13,13,18,.7);transition:.15s;box-shadow:0 0 0 rgba(0,0,0,0)}
+.btn:hover,.btn:focus-visible{background:var(--c,var(--pink));color:var(--bg);box-shadow:0 0 24px var(--c,var(--pink));outline:none;transform:translateY(-2px)}
+
+/* sections */
+h2{font:900 clamp(26px,5vw,40px) var(--heavy);letter-spacing:3px;margin:56px 0 18px;display:flex;align-items:center;gap:14px;text-shadow:-3px 0 var(--pink),3px 0 var(--cyan)}
+h2 i{flex:1;height:3px;background:var(--edge);background-size:200% 100%;animation:slide 3s linear infinite;border-radius:2px}
+h2 b{color:var(--pink);text-shadow:none;font:700 15px var(--mono)}
+@keyframes slide{to{background-position:-200% 0}}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px}
+.card{position:relative;display:block;text-decoration:none;padding:22px;border-radius:14px;background:rgba(20,20,28,.85);border:1px solid var(--line);overflow:hidden;transition:transform .18s,border-color .18s,box-shadow .18s;backdrop-filter:blur(3px)}
+.card::before{content:"";position:absolute;inset:0;border-radius:14px;padding:2px;background:var(--edge);-webkit-mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);opacity:0;transition:.18s}
+.card:hover,.card:focus-visible{transform:translateY(-4px) rotate(-.4deg);box-shadow:0 10px 40px -10px var(--pink),0 0 30px -12px var(--cyan);outline:none}
+.card:hover::before,.card:focus-visible::before{opacity:1}
+.card:hover h3{animation:hj .35s steps(2) 2}
+@keyframes hj{50%{transform:translateX(3px);text-shadow:-3px 0 var(--pink),3px 0 var(--cyan)}}
+.card h3{font:900 21px var(--heavy);letter-spacing:1px;margin-bottom:8px}
+.card p{color:#c9cad3;font-size:15px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tags span{font:12px var(--mono);color:var(--cyan);border:1px solid rgba(46,211,255,.35);border-radius:6px;padding:2px 8px}
+.tags span.live{color:var(--bg);background:var(--pink);border-color:var(--pink);animation:pulse 1.4s ease-in-out infinite}
+.more{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.more a{display:block;text-decoration:none;padding:14px 16px;border-radius:12px;border:1px dashed #3a3a4a;background:rgba(13,13,18,.8);transition:.15s}
+.more a:hover,.more a:focus-visible{border-style:solid;border-color:var(--violet);box-shadow:0 0 20px -6px var(--violet);outline:none}
+.more b{display:block;font:700 15px var(--mono);color:var(--violet)}
+.more span{font-size:14px;color:var(--dim)}
+.stack{display:flex;flex-wrap:wrap;gap:10px}
+.stack span{font:700 14px var(--mono);padding:9px 14px;border-radius:999px;background:var(--panel);border:1px solid var(--line);animation:bob 3s ease-in-out infinite;animation-delay:calc(var(--i)*-.4s)}
+.stack span:nth-child(3n+1){color:var(--pink)}.stack span:nth-child(3n+2){color:var(--cyan)}.stack span:nth-child(3n){color:var(--violet)}
+@keyframes bob{50%{transform:translateY(-5px)}}
+
+/* footer */
+footer{position:relative;margin-top:64px;padding:48px 16px 40px;text-align:center;border-radius:16px;border:2px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,var(--edge) border-box;overflow:hidden}
+.gm{font:900 clamp(48px,12vw,120px)/1 var(--heavy);letter-spacing:6px;position:relative;display:inline-block}
+.gm::before,.gm::after{content:attr(data-t);position:absolute;inset:0;mix-blend-mode:screen}
+.gm::before{color:var(--pink);animation:jp 2.2s steps(1) infinite}.gm::after{color:var(--cyan);animation:jq 2.8s steps(1) infinite}
+footer p{font:14px var(--mono);letter-spacing:3px;color:var(--dim);margin-top:14px}
+.spider{position:absolute;top:0;width:40px;animation:drop 5s ease-in-out infinite;transform-origin:top center}
+.spider.l{left:8%;animation-duration:6.5s;animation-delay:-2s}.spider.r{right:9%}
+.spider::before{content:"";display:block;width:1px;height:60px;margin:0 auto;background:var(--dim)}
+@keyframes drop{0%,100%{transform:translateY(-10px) rotate(-4deg)}50%{transform:translateY(32px) rotate(4deg)}}
+.sweep{position:absolute;top:0;bottom:0;width:160px;background:var(--edge);opacity:.08;animation:sweep 4s linear infinite}
+@keyframes sweep{from{left:-200px}to{left:110%}}
+
+@media (max-width:640px){.hero{grid-template-columns:1fr;justify-items:center;text-align:center}.links{justify-content:center}.spider{width:30px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<canvas id="web" aria-hidden="true"></canvas>
+<div class="scan" aria-hidden="true"></div>
+<div class="flash" aria-hidden="true"></div><div class="flash b" aria-hidden="true"></div>
+
+<main>
+  <div class="banner">
+    <img src="assets/banner.png" alt="SNEAKS">
+    <div class="slice s1" aria-hidden="true"></div><div class="slice s2" aria-hidden="true"></div>
+  </div>
+
+  <div class="ticker" aria-label="AI agents, agent infra, Solana, x402, open source, shipping in public">
+    <div class="ticker-in"><div class="track" aria-hidden="true">
+      <span>AI AGENTS • AGENT INFRA • SOLANA • x402 • OPEN SOURCE • SHIPPING IN PUBLIC •</span>
+      <span>AI AGENTS • AGENT INFRA • SOLANA • x402 • OPEN SOURCE • SHIPPING IN PUBLIC •</span>
+    </div></div>
+  </div>
+
+  <section class="hero">
+    <div class="av" aria-hidden="true">
+      <div class="glow"></div><div class="ring2"></div><div class="ring"></div>
+      <img src="assets/avatar.png" alt="">
+      <div class="gl a"></div><div class="gl b"></div>
+    </div>
+    <div>
+      <h1 class="name" data-t="SNEAKS">SNEAKS</h1>
+      <div class="term">
+        <div><span class="p">$</span> whoami</div>
+        <div><span class="c">sneaks</span> <span class="d">·</span> builder <span class="d">·</span> NY</div>
+        <div><span class="p">$</span> cat building.txt</div>
+        <div id="typed"><span class="v">›</span> AI agents + agent infra</div>
+        <div><span class="p">$</span> <span class="cur"></span></div>
+      </div>
+      <div class="links">
+        <a class="btn" href="https://github.com/0xSneaks">GitHub</a>
+        <a class="btn" style="--c:var(--cyan)" href="https://x.com/heysneaks">X @heysneaks</a>
+        <a class="btn" style="--c:var(--violet)" href="https://chromaspider.vercel.app">ChromaSpider demo</a>
+      </div>
+    </div>
+  </section>
+
+  <h2>FEATURED <i></i><b>06</b></h2>
+  <div class="grid">
+    <a class="card" href="https://github.com/0xSneaks/chromaspider"><h3>🕷️ ChromaSpider</h3><p>The web crawler you can watch crawl. Neon spiders swarm each page while a live graph maps the site, then you get clean Markdown and JSON. SSRF-safe, robots.txt-polite.</p><div class="tags"><span class="live">LIVE DEMO</span><span>Python</span><span>FastAPI</span><span>CLI</span></div></a>
+    <a class="card" href="https://github.com/0xSneaks/MusePark"><h3>🎲 Muse Park</h3><p>A prediction market where AI agents are the participants: they propose markets, forecast, stake, resolve with signed evidence and build Brier-score reputations. Runs on the chain-agnostic Agent Market Protocol.</p><div class="tags"><span>Protocol spec</span><span>Python reference</span><span>Solidity</span><span>v0.3 draft</span></div></a>
+    <a class="card" href="https://github.com/0xSneaks/SUSHILOOP"><h3>🍣 SUSHILOOP</h3><p>A self-improving AI guardrail engine. Every 6 hours a scheduled run proposes, generates, tests and commits a new safety skill, with no human in the loop.</p><div class="tags"><span>Python</span><span>Groq / Llama</span><span>GitHub Actions</span></div></a>
+    <a class="card" href="https://github.com/0xSneaks/phantom-swarm-engine"><h3>🐝 phantom-swarm-engine</h3><p>Multi-agent deliberation streamed over SSE, plus an AI Bundler: describe an agent and a crew of up to 20 agents designs a drop-in bundle of prompts, skills and configs for Claude Code, Cursor and other runtimes.</p><div class="tags"><span>Python</span><span>OpenRouter</span><span>SSE</span></div></a>
+    <a class="card" href="https://github.com/0xSneaks/phantom-skills"><h3>🧩 phantom-skills</h3><p>A skill marketplace for autonomous agents. Agents browse, publish, buy and download skills, paid with x402 micropayments.</p><div class="tags"><span>JavaScript</span><span>x402</span><span>Postgres</span></div></a>
+    <a class="card" href="https://github.com/0xSneaks/Cognitive-Friction-Toolkit"><h3>🧾 Cognitive-Friction Toolkit</h3><p>No promises without proof. A dependency-free discipline that pairs every agent success claim with evidence and a proof state, then derives the verdict deterministically.</p><div class="tags"><span>Python</span><span>agent ops</span></div></a>
+  </div>
+
+  <h2>MORE SHIPS <i></i><b>04</b></h2>
+  <div class="more">
+    <a href="https://github.com/0xSneaks/phantom-pipeline"><b>phantom-pipeline</b><span>idea → architecture → build → review → deploy orchestrator</span></a>
+    <a href="https://github.com/0xSneaks/grok-skills-marketplace"><b>SkillForge</b><span>static, offline-ready marketplace for Grok &amp; Claude skills</span></a>
+    <a href="https://github.com/0xSneaks/x402-layer"><b>x402-layer</b><span>x402 USDC micropayment layer</span></a>
+    <a href="https://github.com/0xSneaks/GitHub-Push-Honesty-Verification-Protocol"><b>Push Honesty Protocol</b><span>stops agents from claiming pushes that never happened</span></a>
+  </div>
+
+  <h2>STACK <i></i></h2>
+  <div class="stack">
+    <span style="--i:0">Python</span><span style="--i:1">TypeScript</span><span style="--i:2">FastAPI</span><span style="--i:3">Solidity</span><span style="--i:4">Solana</span><span style="--i:5">x402</span><span style="--i:6">Claude Code</span><span style="--i:7">GitHub Actions</span>
+  </div>
+
+  <footer>
+    <div class="sweep" aria-hidden="true"></div>
+    <svg class="spider l" viewBox="-30 -26 60 60" aria-hidden="true"><g stroke="#b48cff" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M-6-3l-12-9-6-10M-6 1l-16-3-8-8M-6 4l-15 6-7 9M-5 7l-10 12-3 10M6-3l12-9 6-10M6 1l16-3 8-8M6 4l15 6 7 9M5 7l10 12 3 10"/></g><ellipse cx="0" cy="2" rx="8" ry="11" fill="#14141c" stroke="#2ed3ff" stroke-width="2"/><circle cx="-3" cy="4" r="1.6" fill="#ff3ea5"/><circle cx="3" cy="4" r="1.6" fill="#ff3ea5"/></svg>
+    <svg class="spider r" viewBox="-30 -26 60 60" aria-hidden="true"><g stroke="#2ed3ff" stroke-width="2" fill="none" stroke-linecap="round"><path d="M-6-3l-12-9-6-10M-6 1l-16-3-8-8M-6 4l-15 6-7 9M-5 7l-10 12-3 10M6-3l12-9 6-10M6 1l16-3 8-8M6 4l15 6 7 9M5 7l10 12 3 10"/></g><ellipse cx="0" cy="2" rx="8" ry="11" fill="#14141c" stroke="#ff3ea5" stroke-width="2"/><path d="M-7-12l7 4 7-4v8l-7-4-7 4z" fill="#ff3ea5"/><circle cx="-3" cy="4" r="1.6" fill="#2ed3ff"/><circle cx="3" cy="4" r="1.6" fill="#2ed3ff"/></svg>
+    <div class="gm" data-t="GM ANON">GM ANON</div>
+    <p>SHIPPING IN PUBLIC FROM NY <span class="cur" style="background:var(--pink)"></span></p>
+  </footer>
+</main>
+
+<script>
+(()=>{
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // typed lines
+  const lines=['AI agents + agent infra','solana / crypto · x402','open-source dev tools'];
+  const el=document.getElementById('typed');
+  if(!reduce){let li=0,ci=0,del=false;
+    const tick=()=>{const t=lines[li];
+      if(!del){ci++;if(ci>t.length){del=true;return setTimeout(tick,1600)}}
+      else{ci--;if(ci===0){del=false;li=(li+1)%lines.length}}
+      el.innerHTML='<span class="v">›</span> '+t.slice(0,ci).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+      setTimeout(tick,del?28:55)};
+    setTimeout(tick,1200);}
+  // spider-web network background
+  const c=document.getElementById('web'),x=c.getContext('2d');
+  let W,H,dpr,pts=[],mouse={x:-999,y:-999};
+  const cols=['#ff3ea5','#2ed3ff','#b48cff'];
+  const size=()=>{dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;c.style.width=W+'px';c.style.height=H+'px';x.setTransform(dpr,0,0,dpr,0,0);
+    const n=Math.round(Math.min(90,W*H/16000));pts=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,c:cols[Math.random()*3|0]}));};
+  size();addEventListener('resize',size);
+  addEventListener('pointermove',e=>{mouse.x=e.clientX;mouse.y=e.clientY},{passive:true});
+  addEventListener('pointerleave',()=>{mouse.x=mouse.y=-999});
+  const R=130;
+  const frame=()=>{x.clearRect(0,0,W,H);
+    for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+      const dx=mouse.x-p.x,dy=mouse.y-p.y,d=Math.hypot(dx,dy);if(d<160&&d>1){p.x+=dx/d*.6;p.y+=dy/d*.6}}
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const a=pts[i],b=pts[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<R){x.strokeStyle=a.c;x.globalAlpha=(1-d/R)*.35;x.lineWidth=1;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}
+    x.globalAlpha=.9;for(const p of pts){x.fillStyle=p.c;x.beginPath();x.arc(p.x,p.y,1.8,0,7);x.fill()}
+    x.globalAlpha=1;if(!reduce)requestAnimationFrame(frame)};
+  frame();
+})();
+</script>
+</body>
+</html>
