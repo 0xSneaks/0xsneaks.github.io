@@ -90,8 +90,18 @@ h2 b{color:var(--pink);text-shadow:none;font:700 15px var(--mono)}
 .more span{font-size:14px;color:var(--dim)}
 .stack{display:flex;flex-wrap:wrap;gap:10px}
 .stack span{font:700 14px var(--mono);padding:9px 14px;border-radius:999px;background:var(--panel);border:1px solid var(--line);animation:bob 3s ease-in-out infinite;animation-delay:calc(var(--i)*-.4s)}
-.stack span:nth-child(3n+1){color:var(--pink)}.stack span:nth-child(3n+2){color:var(--cyan)}.stack span:nth-child(3n){color:var(--violet)}
+.stack span:nth-of-type(3n+1){color:var(--pink)}.stack span:nth-of-type(3n+2){color:var(--cyan)}.stack span:nth-of-type(3n){color:var(--violet)}
 @keyframes bob{50%{transform:translateY(-5px)}}
+.sg{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line)}
+.sg:last-child{border-bottom:0}
+.sg>b{font:700 12px var(--mono);letter-spacing:2px;color:var(--dim)}
+.gh{padding:18px;border-radius:14px;background:rgba(20,20,28,.85);border:1px solid var(--line)}
+.gh .cal{display:block;width:100%;height:auto;min-height:60px}
+.gh .meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font:12px var(--mono);color:var(--dim);margin:0 0 12px}
+.gh .meta a{color:var(--cyan)}
+.repos{margin-top:16px}
+.repos time{display:block;font:11px var(--mono);color:var(--pink);margin-top:4px}
+@media (max-width:640px){.sg{grid-template-columns:1fr;gap:8px}}
 
 /* footer */
 footer{position:relative;margin-top:64px;padding:48px 16px 40px;text-align:center;border-radius:16px;border:2px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,var(--edge) border-box;overflow:hidden}
@@ -168,9 +178,20 @@ footer p{font:14px var(--mono);letter-spacing:3px;color:var(--dim);margin-top:14
     <a href="https://github.com/0xSneaks/GitHub-Push-Honesty-Verification-Protocol"><b>Push Honesty Protocol</b><span>stops agents from claiming pushes that never happened</span></a>
   </div>
 
+  <h2>ACTIVITY <i></i><b>LIVE</b></h2>
+  <div class="gh">
+    <div class="meta"><span>contributions · last 12 months</span><a href="https://github.com/0xSneaks">@0xSneaks →</a></div>
+    <img class="cal" src="https://ghchart.rshah.org/ff3ea5/0xSneaks" alt="GitHub contribution graph for 0xSneaks" loading="lazy" onerror="this.remove()">
+    <div class="more repos" id="repos"></div>
+  </div>
+
   <h2>STACK <i></i></h2>
-  <div class="stack">
-    <span style="--i:0">Python</span><span style="--i:1">TypeScript</span><span style="--i:2">FastAPI</span><span style="--i:3">Solidity</span><span style="--i:4">Solana</span><span style="--i:5">x402</span><span style="--i:6">Claude Code</span><span style="--i:7">GitHub Actions</span><span style="--i:8">Postgres</span><span style="--i:9">React Native</span><span style="--i:10">OpenRouter</span><span style="--i:11">Vercel</span><span style="--i:12">Telegram Bots</span>
+  <div>
+    <div class="sg"><b>LANGUAGES</b><div class="stack"><span style="--i:0">Python</span><span style="--i:1">TypeScript</span><span style="--i:2">JavaScript</span></div></div>
+    <div class="sg"><b>AI / AGENTS</b><div class="stack"><span style="--i:3">Claude Code</span><span style="--i:4">OpenRouter</span><span style="--i:5">Groq / Llama</span></div></div>
+    <div class="sg"><b>WEB3</b><div class="stack"><span style="--i:6">Solana</span><span style="--i:7">Solidity</span><span style="--i:8">x402</span></div></div>
+    <div class="sg"><b>BACKEND &amp; INFRA</b><div class="stack"><span style="--i:9">FastAPI</span><span style="--i:10">Postgres</span><span style="--i:11">Vercel</span><span style="--i:12">GitHub Actions</span></div></div>
+    <div class="sg"><b>APPS</b><div class="stack"><span style="--i:13">React Native</span><span style="--i:14">Telegram Bots</span></div></div>
   </div>
 
   <footer>
@@ -195,6 +216,15 @@ footer p{font:14px var(--mono);letter-spacing:3px;color:var(--dim);margin-top:14
       el.innerHTML='<span class="v">›</span> '+t.slice(0,ci).replace(/&/g,'&amp;').replace(/</g,'&lt;');
       setTimeout(tick,del?28:55)};
     setTimeout(tick,1200);}
+  // latest pushed repos (public GitHub API, no auth)
+  const box=document.getElementById('repos');
+  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const ago=d=>{const s=(Date.now()-new Date(d))/1e3;return s<3600?Math.max(1,s/60|0)+'m ago':s<86400?(s/3600|0)+'h ago':(s/86400|0)+'d ago'};
+  fetch('https://api.github.com/users/0xSneaks/repos?sort=pushed&per_page=12')
+    .then(r=>r.ok?r.json():Promise.reject())
+    .then(list=>{box.innerHTML=list.filter(r=>!r.fork&&!r.private&&r.name.toLowerCase()!=='0xsneaks.github.io').slice(0,6)
+      .map(r=>`<a href="${esc(r.html_url)}"><b>${esc(r.name)}</b><span>${esc(r.description||r.language||'')}</span><time datetime="${esc(r.pushed_at)}">pushed ${ago(r.pushed_at)}</time></a>`).join('')})
+    .catch(()=>box.remove());
   // spider-web network background
   const c=document.getElementById('web'),x=c.getContext('2d');
   let W,H,dpr,pts=[],mouse={x:-999,y:-999};
